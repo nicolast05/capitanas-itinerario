@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fiesta Virgen del Carmen - Itinerario</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 1rem;
+      background: #f7f7f7;
+    }
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      padding: 0.75rem;
+      border-bottom: 1px solid #ddd;
+      text-align: left;
+    }
+    th {
+      background-color: #e0e0e0;
+    }
+    .current {
+      background-color: #c8e6c9 !important;
+      font-weight: bold;
+    }
+    .day-title {
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Fiesta Patronal Virgen del Carmen</h1>
+
+  <!-- Día 1 -->
+  <div class="day-title">Sábado 27 de Julio</div>
+  <table>
+    <thead>
+      <tr>
+        <th>Hora</th>
+        <th>Actividad</th>
+        <th>Lugar</th>
+      </tr>
+    </thead>
+    <tbody id="day-27">
+      <tr data-start="08:00" data-end="09:00">
+        <td>08:00 - 09:00</td>
+        <td>Desayuno comunitario</td>
+        <td>Plaza principal</td>
+      </tr>
+      <tr data-start="10:00" data-end="11:30">
+        <td>10:00 - 11:30</td>
+        <td>Misa de apertura</td>
+        <td>Iglesia Virgen del Carmen</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Aquí puedes duplicar bloques para cada día -->
+
+  <script>
+    function getCurrentTime() {
+      const now = new Date();
+      const h = now.getHours().toString().padStart(2, '0');
+      const m = now.getMinutes().toString().padStart(2, '0');
+      return h + ':' + m;
+    }
+
+    function isNowBetween(start, end, now) {
+      return now >= start && now <= end;
+    }
+
+    function highlightCurrentRow() {
+      const now = getCurrentTime();
+      const rows = document.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const start = row.dataset.start;
+        const end = row.dataset.end;
+        if (start && end && isNowBetween(start, end, now)) {
+          row.classList.add('current');
+        }
+      });
+    }
+
+    highlightCurrentRow();
+    setInterval(highlightCurrentRow, 60000); // Actualiza cada minuto
+  </script>
+
+</body>
+</html>
